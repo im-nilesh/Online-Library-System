@@ -1,5 +1,4 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
@@ -11,7 +10,14 @@ import NotFound from "./pages/NotFound";
 function App() {
   const location = useLocation();
 
-  const showNavbar = location.pathname !== "*";
+  const validRoutes = ["/", "/browse-books", "/add-book"];
+
+  const isBookDetails = location.pathname.startsWith("/book/");
+
+  const isCategoryRoute = location.pathname.startsWith("/books/");
+
+  const showNavbar =
+    validRoutes.includes(location.pathname) || isBookDetails || isCategoryRoute;
 
   return (
     <>
