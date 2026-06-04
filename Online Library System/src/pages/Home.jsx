@@ -1,64 +1,51 @@
 import { Link } from "react-router-dom";
 import { books } from "../data/books";
+import BookCard from "../components/BookCard";
 
 function Home() {
   const popularBooks = books.slice(0, 4);
 
+  const categories = ["Fiction", "Sci-Fi", "Non-Fiction", "Horror"];
+
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center mb-8">
-        Welcome to Online Library
-      </h1>
+    <div className="max-w-7xl mx-auto px-6 py-10">
+      {/* Hero Section */}
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-slate-800 mb-4">
+          Welcome to Online Library
+        </h1>
 
-      <h2 className="text-2xl font-semibold mb-4">Book Categories</h2>
-
-      <div className="flex flex-wrap gap-4 mb-10">
-        <Link
-          to="/books/Fiction"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Fiction
-        </Link>
-
-        <Link
-          to="/books/Sci-Fi"
-          className="bg-purple-500 text-white px-4 py-2 rounded"
-        >
-          Sci-Fi
-        </Link>
-
-        <Link
-          to="/books/Non-Fiction"
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Non-Fiction
-        </Link>
-
-        <Link
-          to="/books/Horror"
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Horror
-        </Link>
+        <p className="text-lg text-gray-600">
+          Discover, explore and manage your favorite books.
+        </p>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-4">Popular Books</h2>
+      {/* Categories */}
+      <div className="mb-12">
+        <h2 className="text-3xl font-semibold mb-6">Browse Categories</h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {popularBooks.map((book) => (
-          <div key={book.id} className="bg-white rounded-lg shadow-lg p-4">
-            <h3 className="font-bold text-lg">{book.title}</h3>
-
-            <p className="text-gray-600">{book.author}</p>
-
+        <div className="flex flex-wrap gap-4">
+          {categories.map((category) => (
             <Link
-              to={`/book/${book.id}`}
-              className="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded"
+              key={category}
+              to={`/books/${category}`}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-lg transition"
             >
-              View Details
+              {category}
             </Link>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* Popular Books */}
+      <div>
+        <h2 className="text-3xl font-semibold mb-6">Popular Books</h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {popularBooks.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
       </div>
     </div>
   );
